@@ -32,15 +32,17 @@ var config = {
     }
 };
 
-gulp.task('client', function() {
-    return browserify({ entries: config.js.src, debug: true })
-        .transform("babelify", { presets: ["es2015"] })
-        .bundle()
-        .pipe(source('app.js'))
-        .pipe(buffer())
-        .pipe(uglify())
-        .pipe(gulp.dest(config.js.dest))
-        .pipe(livereload());
+gulp.task('client', function(callback) {
+    pump([
+        browserify({ entries: config.js.src, debug: true })
+            .transform("babelify", { presets: ["es2015"] })
+            .bundle(),
+        source('app.js'),
+        buffer(),
+        uglify(),
+        gulp.dest(config.js.dest),
+        livereload()
+    ], callback);
 });
 
 gulp.task('server', function(callback) {
@@ -51,7 +53,7 @@ gulp.task('server', function(callback) {
             noImplicitAny: false
         }),
         gulp.dest(config.ts.dest)
-    ])
+    ], callback)
 });
 
 gulp.task('default', ['client', 'server']);
