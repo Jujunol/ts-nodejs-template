@@ -1,4 +1,4 @@
-var app = require('../app');
+var app = require('./build/app').Server.bootstrap().app;
 var debug = require('debug')('ts-nodejs-template:server');
 var http = require('http');
 
