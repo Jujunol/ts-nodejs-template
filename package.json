@@ -1,0 +1,37 @@
+{
+  "name": "ts-nodejs-template",
+  "version": "1.0.0",
+  "private": false,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "body-parser": "~1.13.2",
+    "cookie-parser": "~1.3.5",
+    "debug": "~2.2.0",
+    "ejs": "~2.3.3",
+    "express": "~4.13.1",
+    "morgan": "~1.6.1",
+    "node-sass-middleware": "0.8.0",
+    "serve-favicon": "~2.3.0"
+  },
+  "description": "Basic template with typescript for nodejs ",
+  "main": "server.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jujunol/ts-nodejs-template.git"
+  },
+  "keywords": [
+    "template",
+    "typescript",
+    "node",
+    "js",
+    "gulp"
+  ],
+  "author": "Jujunol <jujunol@outlook.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Jujunol/ts-nodejs-template/issues"
+  },
+  "homepage": "https://github.com/Jujunol/ts-nodejs-template#readme"
+}
