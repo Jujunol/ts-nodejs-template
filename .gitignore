@@ -31,6 +31,9 @@ res
 # Debug log from npm
 npm-debug.log
 
+# IDEs
+.idea
+
 # Environments
 *.env
 
