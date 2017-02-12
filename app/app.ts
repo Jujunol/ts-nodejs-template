@@ -6,6 +6,7 @@ import * as bodyParser from 'body-parser';
 import * as env from 'dotenv';
 import * as session from 'express-session';
 import * as errorHandler from 'errorhandler';
+import * as nunjucks from 'nunjucks';
 
 import {IndexRoute} from './routes/IndexRoute';
 
@@ -27,8 +28,12 @@ export class Server {
         env.config();  // loads .env file if exists
 
         this.app.use(express.static(path.join(path.dirname(__dirname), 'public')));
-        this.app.set('views', path.join(path.dirname(__dirname), 'views'));
-        this.app.set('view engine', 'ejs');
+        this.app.engine('njk', nunjucks.render);
+        this.app.set('view engine', 'njk');
+        nunjucks.configure(path.join(path.dirname(__dirname), 'views'), {
+            autoescape: true,
+            express: this.app,
+        })
 
         this.app.use(logger('dev'));
         this.app.use(bodyParser.json());
