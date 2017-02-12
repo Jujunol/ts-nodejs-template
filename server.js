@@ -13,22 +13,13 @@ server.on('listening', onListening);
 
 function normalizePort(val) {
   var port = parseInt(val, 10);
-
-  if (isNaN(port)) {
-    return val;
-  }
-
-  if (port >= 0) {
-    return port;
-  }
-
+  if (isNaN(port)) { return val; }
+  if (port >= 0) { return port; }
   return false;
 }
 
 function onError(error) {
-  if (error.syscall !== 'listen') {
-    throw error;
-  }
+  if (error.syscall !== 'listen') { throw error; }
 
   var bind = typeof port === 'string'
     ? 'Pipe ' + port
@@ -47,10 +38,6 @@ function onError(error) {
       throw error;
   }
 }
-
-/**
- * Event listener for HTTP server "listening" event.
- */
 
 function onListening() {
   var addr = server.address();
