@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "private": false,
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "postinstall": "bower install && gulp"
   },
   "dependencies": {
     "@types/body-parser": "0.0.33",
