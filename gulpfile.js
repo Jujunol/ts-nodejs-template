@@ -8,29 +8,64 @@ var buffer = require('vinyl-buffer');
 var uglify = require('gulp-uglify');
 var livereload = require('gulp-livereload');
 var ts = require('gulp-typescript');
+var sass = require('gulp-sass');
 
 var config = {
     api: {
         fontawesome: {
-            fonts: "bower_components/font-awesome/fonts/**/*",
-            sass: "bower_components/font-awesome/scss/"
+            fonts: "res/font-awesome/fonts/**/*",
+            sass: "res/font-awesome/scss/"
         },
-        jquery: "bower_components/jquery/dist/jquery.min.js",
+        jquery: "res/jquery/dist/jquery.min.js",
         materialize: {
-            js: "bower_components/materialize/dist/js/materialize.min.js",
-            fonts: 'bower_components/materialize/dist/fonts/**/*',
-            sass: "bower_components/materialize/sass/"
+            js: "res/materialize/dist/js/materialize.min.js",
+            fonts: 'res/materialize/dist/fonts/**/*',
+            sass: "res/materialize/sass/"
         },
+    },
+    ts: {
+        src: "app/**/*.ts",
+        dest: "build/"
     },
     js: {
         src: "src/js/app.js",
         dest: "public/js"
     },
-    ts: {
-        src: "app/**/*.ts",
-        dest: "build/"
-    }
+    sass: {
+        src: "src/sass/**/*.scss",
+        dest: "public/css"
+    },
+    fonts: "public/fonts"
 };
+
+gulp.task('style', function(callback) {
+    var options = {
+        includePaths: [
+            config.api.fontawesome.sass,
+            config.api.materialize.sass
+        ],
+        outputStyle: "compressed"
+    };
+    pump([
+        gulp.src(config.sass.src),
+        sass(options),
+        gulp.dest(config.sass.dest),
+        livereload()
+    ], callback);
+});
+
+gulp.task('font', function(callback) {
+    pump([
+        pump([
+            gulp.src(config.api.materialize.fonts),
+            gulp.dest(config.fonts)
+        ]),
+        pump([
+            gulp.src(config.api.fontawesome.fonts),
+            gulp.dest(config.fonts)
+        ])
+    ], callback)
+});
 
 gulp.task('client', function(callback) {
     pump([
@@ -52,8 +87,9 @@ gulp.task('server', function(callback) {
             module: "commonjs",
             noImplicitAny: false
         }),
-        gulp.dest(config.ts.dest)
+        gulp.dest(config.ts.dest),
+        livereload()
     ], callback)
 });
 
-gulp.task('default', ['client', 'server']);
+gulp.task('default', ['client', 'server', 'style', 'fonts']);

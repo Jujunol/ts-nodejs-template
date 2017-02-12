@@ -3,9 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <title>{{title}}</title>
+
+    <link rel="stylesheet" href="/css/main.css" />
 </head>
 <body>
-    {% block main %}{% endblock %}
+    <header role="banner">{% block header %}{% endblock %}</header>
+    <main role="main">
+        <div class="container">
+            {% block main %}{% endblock %}
+        </div>
+    </main>
 
     {% for script in scripts %}
         <script src="{{script}}"></script>

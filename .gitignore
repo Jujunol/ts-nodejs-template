@@ -33,3 +33,8 @@ npm-debug.log
 
 # Environments
 *.env
+
+# Compiled srcs
+public/css
+public/js
+public/fonts
