@@ -1,0 +1,29 @@
+{
+  "name": "ts-nodejs-template",
+  "description": "Basic template with typescript for nodejs",
+  "main": "server.js",
+  "authors": [
+    "Jujunol <jujunol@outlook.com>"
+  ],
+  "license": "ISC",
+  "keywords": [
+    "template",
+    "typescript",
+    "node",
+    "js",
+    "gulp"
+  ],
+  "homepage": "https://github.com/Jujunol/ts-nodejs-template",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "res",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "font-awesome": "^4.7.0",
+    "materialize": "^0.98.0"
+  }
+}
