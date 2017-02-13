@@ -54,17 +54,15 @@ gulp.task('style', function(callback) {
     ], callback);
 });
 
-gulp.task('font', function(callback) {
+gulp.task('fonts', function(callback) {
     pump([
-        pump([
-            gulp.src(config.api.materialize.fonts),
-            gulp.dest(config.fonts)
-        ]),
-        pump([
-            gulp.src(config.api.fontawesome.fonts),
-            gulp.dest(config.fonts)
-        ])
-    ], callback)
+        gulp.src(config.api.materialize.fonts),
+        gulp.dest(config.fonts)
+    ]);
+    pump([
+        gulp.src(config.api.fontawesome.fonts),
+        gulp.dest(config.fonts)
+    ], callback);
 });
 
 gulp.task('client', function(callback) {
@@ -92,4 +90,4 @@ gulp.task('server', function(callback) {
     ], callback)
 });
 
-gulp.task('default', ['client', 'server', 'style', 'fonts']);
+gulp.task('default', ['server', 'style', 'fonts']);
