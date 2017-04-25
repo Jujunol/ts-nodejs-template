@@ -22,6 +22,9 @@ export class Server {
         this.app = express();
         this.config();
         this.routes();
+
+        // 404 should always be the last
+        this.error404();
     }
 
     config() {
@@ -33,9 +36,8 @@ export class Server {
         nunjucks.configure(path.join(path.dirname(__dirname), 'views'), {
             autoescape: true,
             express: this.app,
-        })
+        });
 
-        this.app.use(logger('dev'));
         this.app.use(bodyParser.json());
         this.app.use(bodyParser.urlencoded({ extended: true }));
         this.app.use(cookieParser());
@@ -45,22 +47,23 @@ export class Server {
             resave: false,
             saveUninitialized: true,
         }));
-
-        // error 404 
-        this.app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
-            err.status = 404;
-            next(err);
-        });
-
-        this.app.use(errorHandler());
     }
 
     routes() {
         [
             new IndexRoute(),
-        ].forEach((route) => {
+        ].forEach(route => {
             this.app.use(route.basePath, route.router);
-        })
+        });
+    }
+
+    error404() {
+        this.app.use((err: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {
+            res.status(404);
+            next(err);
+        });
+
+        this.app.use(errorHandler());
     }
 
 }
