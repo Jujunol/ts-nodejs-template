@@ -2,11 +2,10 @@ import * as express from 'express';
 import * as path from 'path';
 import * as cookieParser from 'cookie-parser';
 import * as bodyParser from 'body-parser';
-import * as env from 'dotenv';
 import * as session from 'express-session';
 import * as errorHandler from 'errorhandler';
 import * as nunjucks from 'nunjucks';
-
+import {env} from './config/Config';
 import {IndexRoute} from './routes/IndexRoute';
 
 export class Server {
@@ -27,8 +26,6 @@ export class Server {
     }
 
     config() {
-        env.config();  // loads .env file if exists
-
         this.app.use(express.static(path.join(path.dirname(__dirname), 'public')));
         this.app.engine('njk', nunjucks.render);
         this.app.set('view engine', 'njk');
@@ -42,7 +39,7 @@ export class Server {
         this.app.use(cookieParser());
 
         this.app.use(session({
-            secret: process.env.app_secret,
+            secret: env('app_secret', 'secret'),
             resave: false,
             saveUninitialized: true,
         }));
