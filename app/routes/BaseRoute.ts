@@ -1,4 +1,4 @@
-import {Request, Response, Router} from 'express';
+import {Response, Router} from 'express';
 
 export abstract class BaseRoute {
 
@@ -19,7 +19,7 @@ export abstract class BaseRoute {
         return this;
     }
 
-    public render(req: Request, res: Response, view: string, options?: Object) {
+    public render(res: Response, view: string, options?: Object) {
         res.locals.BASE_URL = "/";
         res.locals.scripts = this.scripts;
         res.locals.title = this.title;
